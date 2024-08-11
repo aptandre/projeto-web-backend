@@ -1,7 +1,11 @@
+import { User } from "./user";
+
 export interface Expense {
     id: number;
-    title: string;
-    amount: number;
-    // String temporariamente
-    date: string; 
+    userId: String;
+    user: User;
+    titulo: String;
+    valor: number;
+    categoria: Categoria;
+    data: Date; 
 }

@@ -14,16 +14,17 @@ datasource db {
 }
 
 model User {
-  id       String   @id @default(uuid())
+  id       String   @id @default(cuid())
   name     String
   premium  Boolean @default(false)
   email    String   @unique
   incomes  Income[]
   expenses Expense[]
+  budgets Budget[]
 }
 
 model Income {
-  id        String   @id @default(uuid())
+  id        String   @id @default(cuid())
   userId    String
   user      User     @relation(fields: [userId], references: [id])
   titulo    String
@@ -34,17 +35,34 @@ model Income {
 }
 
 model Expense {
-  id        String   @id @default(uuid())
+  id        String   @id @default(cuid())
   userId    String
   user      User     @relation(fields: [userId], references: [id])
   titulo    String
   valor     Float
   categoria Categoria
+  tipo      TipoGasto
   data      DateTime
+}
+
+model Budget {
+  id String @id @default(cuid())
+  titulo String
+  description String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 enum Categoria {
   ALIMENTACAO
   TRANSPORTE
   ENTRETENIMENTO
+  ROUPAS
+  DELIVERY
+  ROLE
+}
+
+enum TipoGasto {
+  CREDITO,
+  DEBITO
 }

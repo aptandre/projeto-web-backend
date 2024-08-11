@@ -1,0 +1,8 @@
+enum Categoria {
+    ALIMENTACAO,
+    TRANSPORTE,
+    ENTRETENIMENTO,
+    ROUPAS,
+    DELIVERY,
+    ROLE
+}
