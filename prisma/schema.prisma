@@ -18,6 +18,7 @@ model User {
   name     String
   premium  Boolean @default(false)
   email    String   @unique
+  password String
   incomes  Income[]
   expenses Expense[]
   budgets Budget[]
@@ -63,6 +64,6 @@ enum Categoria {
 }
 
 enum TipoGasto {
-  CREDITO,
+  CREDITO
   DEBITO
 }
