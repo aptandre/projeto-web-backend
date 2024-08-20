@@ -40,6 +40,10 @@ export class UserService {
   async updateUser(id: string, userData: Partial<User>): Promise<User | null> {
     const user = await this.userRepository.getUserById(id);
 
+    if (user == null) {
+      return null
+    }
+    
     return this.userRepository.updateUser(id, userData);
   }
 

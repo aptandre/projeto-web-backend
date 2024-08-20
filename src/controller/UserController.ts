@@ -29,11 +29,12 @@ export class UserController {
 
   async getUserByEmail(req: Request, res: Response): Promise<void> {
     try {
-      const { email } = req.params;
+      const { email } = req.body;
 
       const user = await this.userService.getUserByEmail(email);
       if (user == null) {
-        res.status(404).json({message: 'Usuário não foi encontrado.'})
+        res.status(404).json({message: 'Usuário não foi encontrado.'});
+        return;
       }
       res.status(200).json(user)
     } catch (error) {
@@ -48,6 +49,7 @@ export class UserController {
       const deletedUser = await this.userService.deleteUser(id);
       if (deletedUser == null) {
         res.status(404).json({message: 'O usuário com este id não foi encontrado.'});
+        return;
       }
       res.status(200).json({message: `O usuário de id ${id} foi deletado com sucesso.`});
       
@@ -72,6 +74,7 @@ export class UserController {
       const user = await this.userService.togglePremiumUser(id);
       if (user == null) {
         res.status(404).json({message: 'O usuário com este id não foi encontrado.'});
+        return;
       }
       res.status(200).json({message: `O usuário de id ${id} tornou-se premium com sucesso.`});
     } catch (error) {
