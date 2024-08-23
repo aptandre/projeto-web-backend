@@ -10,6 +10,9 @@ router.post('/register-new-user', (req, res) => userController.register(req, res
 // Pegar usuário por email
 router.get('/get-user-by-email', (req, res) => userController.getUserByEmail(req, res));
 
+// Pegar usuário por id
+router.get('/get-user-by-id/:id', (req, res) => userController.getUserById(req, res));
+
 // Pegar todos os usuários
 router.get('/get-all-users', (req, res) => userController.getAllUsers(req, res));
 

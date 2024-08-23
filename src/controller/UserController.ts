@@ -43,6 +43,16 @@ export class UserController {
     }
   }
 
+  async getUserById(req: Request, res: Response): Promise<void> {
+    try {
+      const { id }  = req.params;
+      const user = await this.userService.getUserById(id);
+      res.status(200).json(user)
+    } catch (error) {
+      res.status(500).json({ message: `Ocorreu um erro no servidor ao tentar encontrar o usuário. ${error}`});
+    }
+  }
+
    // READ
   async getAllUsers(req: Request, res: Response): Promise<void> {
     try {

@@ -25,6 +25,10 @@ export class UserService {
     return this.userRepository.getUserByEmail(email);
   }
 
+  async getUserById(id: string): Promise<User | null> {
+    return this.userRepository.getUserById(id);
+  }
+
   async deleteUser(id: string): Promise<User | null> {
     return this.userRepository.deleteUser(id);
   }

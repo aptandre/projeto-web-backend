@@ -13,6 +13,11 @@ export class UserRepository {
   async getUserById(id: string): Promise<User | null> {
     return prisma.user.findUnique({
       where: { id },
+      include: {
+        incomes: true,
+        expenses: true,
+        budgets: true
+      },
     });
   }
 
