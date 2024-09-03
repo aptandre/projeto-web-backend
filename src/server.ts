@@ -4,6 +4,7 @@ import ExpenseRoutes from './routes/ExpenseRoutes';
 import IncomeRoutes from './routes/IncomeRoutes';
 import BudgetRoutes from './routes/BudgetRoutes';
 
+require("dotenv").config();
 const app = express();
 
 app.use(express.json());

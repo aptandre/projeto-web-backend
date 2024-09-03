@@ -51,4 +51,14 @@ export class UserService {
     return this.userRepository.updateUser(id, userData);
   }
 
+  async authenticateUser(email: string, password: string): Promise<User | null> {
+    const user = await this.userRepository.getUserByEmail(email);
+    if (!user) return null;
+    
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) return null;
+
+    return user;
+}
+
 }

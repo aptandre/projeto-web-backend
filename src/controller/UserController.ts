@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { UserService } from '../service/UserService';
 import { User } from '@prisma/client';
+import jwt from 'jsonwebtoken';
 
 
 export class UserController {
@@ -9,6 +10,27 @@ export class UserController {
   constructor() {
     this.userService = new UserService();
   }
+
+  async login(req: Request, res: Response): Promise<void> {
+    const { email, password } = req.body;
+
+    try {
+        const user = await this.userService.authenticateUser(email, password);
+        console.log("achei o user aqui no controller!")
+        if (!user) {
+            res.status(401).json({ message: 'Email ou senha inválidos.' });
+            return;
+        }
+        console.log("passei do !user");
+        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, { expiresIn: '1h' });
+        console.log("tenho o token!");
+        res.status(200).json({ token });
+        console.log("tenho o token!");
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: 'Ocorreu um erro no servidor ao tentar autenticar o usuário', error });
+    }
+}
 
   // CREATE
   async register(req: Request, res: Response): Promise<void> {
