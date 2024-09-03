@@ -13,18 +13,34 @@ export class BudgetService {
   }
 
   async getBudgetById(id: string): Promise<Budget | null> {
-    return budgetRepository.findById(id);
+    try {
+      return budgetRepository.findById(id);
+    } catch (error) {
+      throw error;
+    }
   }
 
   async getAllBudgets(userId: string): Promise<Budget[]> {
-    return budgetRepository.findAllByUserId(userId);
+    try {
+      return budgetRepository.findAllByUserId(userId);
+    } catch (error) {
+      throw error;
+    }
   }
 
   async updateBudget(id: string, data: Partial<Budget>): Promise<Budget> {
-    return budgetRepository.update(id, data);
+    try {
+      return budgetRepository.update(id, data);
+    } catch (error) {
+      throw error;
+    }
   }
 
   async deleteBudget(id: string): Promise<Budget> {
-    return budgetRepository.delete(id);
+    try {
+      return budgetRepository.delete(id);
+    } catch (error) {
+      throw error;
+    }
   }
 }

@@ -34,18 +34,46 @@ export class BudgetRepository {
   }
 
   async findById(id: string): Promise<Budget | null> {
-    return prisma.budget.findUnique({ where: { id } });
+    const budget = await prisma.budget.findUnique({ where: { id } });
+    
+    if (!budget) {
+      throw new Error(`Orçamento com id ${id} não foi encontrado.`);
+    }
+  
+    return budget;
   }
-
+  
   async findAllByUserId(userId: string): Promise<Budget[]> {
-    return prisma.budget.findMany({ where: { userId } });
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+  
+    if (!user) {
+      throw new Error(`Usuário com id ${userId} não foi encontrado.`);
+    }
+  
+    const budgets = await prisma.budget.findMany({ where: { userId } });
+    return budgets;
   }
-
+  
   async update(id: string, data: Partial<Budget>): Promise<Budget> {
+    const budget = await prisma.budget.findUnique({ where: { id } });
+    
+    if (!budget) {
+      throw new Error(`Orçamento com id ${id} não foi encontrado.`);
+    }
+  
     return prisma.budget.update({ where: { id }, data });
   }
-
+  
   async delete(id: string): Promise<Budget> {
+    const budget = await prisma.budget.findUnique({ where: { id } });
+    
+    if (!budget) {
+      throw new Error(`Orçamento com id ${id} não foi encontrado.`);
+    }
+  
     return prisma.budget.delete({ where: { id } });
   }
+  
 }

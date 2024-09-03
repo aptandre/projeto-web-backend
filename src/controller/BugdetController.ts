@@ -12,11 +12,11 @@ export class BudgetController {
       const err = error as Error;
   
       if (err.message.includes('O usuário com id')) {
-        res.status(404).json({ error: err.message }); // Usuário não encontrado
+        res.status(404).json({ error: err.message });
       } else if (err.message.includes('Você atingiu o limite máximo')) {
-        res.status(403).json({ error: err.message }); // Limite de orçamento atingido
+        res.status(403).json({ error: err.message });
       } else {
-        res.status(500).json({ error: 'Erro interno do servidor.' }); // Erro genérico
+        res.status(500).json({ error: 'Erro interno do servidor.' });
       }
     }
   }
@@ -31,7 +31,15 @@ export class BudgetController {
         res.status(404).json({ message: 'Budget not found' });
       }
     } catch (error) {
-      res.status(500).json({ error: "erro" });
+        const err = error as Error;
+    
+        if (err.message.includes('O usuário com id')) {
+          res.status(404).json({ error: err.message });
+        } else if (err.message.includes('Você atingiu o limite máximo')) {
+          res.status(403).json({ error: err.message });
+        } else {
+          res.status(500).json({ error: 'Erro interno do servidor.' });
+        }
     }
   }
 
@@ -41,7 +49,15 @@ export class BudgetController {
       const budgets = await budgetService.getAllBudgets(userId);
       res.json(budgets);
     } catch (error) {
-      res.status(500).json({ error: "erro" });
+      const err = error as Error;
+    
+      if (err.message.includes('O usuário com id')) {
+        res.status(404).json({ error: err.message });
+      } else if (err.message.includes('Você atingiu o limite máximo')) {
+        res.status(403).json({ error: err.message });
+      } else {
+        res.status(500).json({ error: 'Erro interno do servidor.' });
+      }
     }
   }
 
@@ -51,7 +67,15 @@ export class BudgetController {
       const updatedBudget = await budgetService.updateBudget(id, req.body);
       res.json(updatedBudget);
     } catch (error) {
-      res.status(500).json({ error: "erro" });
+      const err = error as Error;
+    
+      if (err.message.includes('O usuário com id')) {
+        res.status(404).json({ error: err.message });
+      } else if (err.message.includes('Você atingiu o limite máximo')) {
+        res.status(403).json({ error: err.message });
+      } else {
+        res.status(500).json({ error: 'Erro interno do servidor.' });
+      }
     }
   }
 
@@ -61,7 +85,15 @@ export class BudgetController {
       await budgetService.deleteBudget(id);
       res.status(204).send();
     } catch (error) {
-      res.status(500).json({ error: "erro" });
+      const err = error as Error;
+    
+      if (err.message.includes('O usuário com id')) {
+        res.status(404).json({ error: err.message });
+      } else if (err.message.includes('Você atingiu o limite máximo')) {
+        res.status(403).json({ error: err.message });
+      } else {
+        res.status(500).json({ error: 'Erro interno do servidor.' });
+      }
     }
   }
 }
