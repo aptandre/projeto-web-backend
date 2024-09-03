@@ -7,7 +7,7 @@ export class ExpenseRepository {
     // User
     const user = await prisma.user.findUnique({
         where: { id: data.userId },
-        include: { budgets: true },
+        include: { expenses: true },
     });
 
     // Quando o usuário não for encontrado, eu retorno um erro
@@ -15,11 +15,11 @@ export class ExpenseRepository {
         throw new Error(`O usuário com id ${data.userId} não foi encontrado.`);
     }
 
-    // Defini o limite de 20 budgets para usuários normais
-    const budgetLimit = 20;
+    // Defini o limite de 20 expenses para usuários normais
+    const expensesLimit = 20;
 
     // Verifique se o usuário já atingiu o limite
-    if (user.premium && user.budgets.length >= 20) {
+    if (user.premium && user.expenses.length >= expensesLimit) {
         throw new Error(
           'Você atingiu o limite máximo de 20 gastos, faça o upgrade para continuar adicionando gastos ou exclua gastos existentes.'
         );

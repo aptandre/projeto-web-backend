@@ -5,7 +5,11 @@ const budgetRepository = new BudgetRepository();
 
 export class BudgetService {
   async createBudget(data: Omit<Budget, 'id'>): Promise<Budget> {
-    return budgetRepository.create(data);
+    try {
+      return await budgetRepository.create(data);
+    } catch (error) {
+      throw error;
+    }
   }
 
   async getBudgetById(id: string): Promise<Budget | null> {

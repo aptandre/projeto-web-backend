@@ -9,7 +9,15 @@ export class BudgetController {
       const budget = await budgetService.createBudget(req.body);
       res.status(201).json(budget);
     } catch (error) {
-      res.status(500).json({ error: "erro" });
+      const err = error as Error;
+  
+      if (err.message.includes('O usuário com id')) {
+        res.status(404).json({ error: err.message }); // Usuário não encontrado
+      } else if (err.message.includes('Você atingiu o limite máximo')) {
+        res.status(403).json({ error: err.message }); // Limite de orçamento atingido
+      } else {
+        res.status(500).json({ error: 'Erro interno do servidor.' }); // Erro genérico
+      }
     }
   }
 
