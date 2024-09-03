@@ -13,7 +13,6 @@ app.use('/api', ExpenseRoutes);
 app.use('/api', IncomeRoutes);
 app.use('/api', BudgetRoutes);
 
-
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
 });
